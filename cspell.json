@@ -3,7 +3,8 @@
     "version": "0.2",
     "words": [
         "tanstak",
-        "turbopack"
+        "turbopack",
+        "vercel"
     ],
     "dictionaries": [
         "project-words"

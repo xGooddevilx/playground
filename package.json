@@ -4,9 +4,11 @@
   "scripts": {
     "build": "turbo build",
     "dev": "turbo dev",
+    "dev:tanstack-table":"cd apps/tanstak-table && pnpm dev",
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "spell-check":"turbo cspell"
+    "spell-check":"turbo cspell",
+    "type-check":"turbo type-check"
   },
   "devDependencies": {
     "cspell": "^8.17.1",
