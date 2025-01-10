@@ -1,0 +1,15 @@
+{
+    "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
+    "version": "0.2",
+    "words": [
+        "tanstak",
+        "turbopack"
+    ],
+    "dictionaries": [
+        "project-words"
+    ],
+    "ignorePaths": [
+        "node_modules",
+        "/project-words.txt"
+    ]
+}
