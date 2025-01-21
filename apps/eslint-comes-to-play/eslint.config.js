@@ -2,6 +2,7 @@ import tseslint from "typescript-eslint";
 import jsConfig from "@eslint/js";
 import globals from "globals";
 import unusedImports from "eslint-plugin-unused-imports";
+import unicornConfig from "eslint-plugin-unicorn";
 
 const baseConfig = () => {
 	return {
@@ -15,6 +16,9 @@ const baseConfig = () => {
 				...globals.browser,
 			},
 		},
+		plugins: {
+			"unused-imports": unusedImports,
+		},
 		rules: {
 			...jsConfig.configs.recommended.rules,
 			"no-unused-vars": [
@@ -26,6 +30,7 @@ const baseConfig = () => {
 					varsIgnorePattern: "^_",
 				},
 			],
+			"unused-imports/no-unused-imports": "error",
 		},
 		linterOptions: {
 			noInlineConfig: true,
@@ -57,11 +62,9 @@ export default [
 	baseConfig(),
 	...typescriptConfig(),
 	{
-		plugins: {
-			"unused-imports": unusedImports,
-		},
-		rules: {
-			"unused-imports/no-unused-imports": "error",
-		},
+		...unicornConfig.configs["flat/all"],
+		rules:{
+			'unicorn/better-regex': 'error',
+		}
 	},
 ];
