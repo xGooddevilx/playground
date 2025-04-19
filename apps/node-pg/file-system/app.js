@@ -1,4 +1,3 @@
-import { error } from "console";
 import fs from "fs";
 
 fs.writeFile("hello-world.txt", "Hello world", error => {
