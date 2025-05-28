@@ -1,0 +1,18 @@
+{
+  "name": "flat",
+  "version": "1.0.0",
+  "description": "",
+  "main": "node.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@faker-js/faker": "^9.8.0",
+    "devalue": "^5.1.1",
+    "flatted": "^3.3.3"
+  }
+}
