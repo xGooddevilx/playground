@@ -2,6 +2,7 @@ import express, { json } from "express";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import morgan from "morgan";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -13,7 +14,14 @@ const PORT = 3000;
 
 const app = express();
 
+app.use(morgan("dev"));
+
 app.use(json());
+
+app.use((_req, _res, next) => {
+  console.log("Custom Middleware");
+  next();
+});
 
 const apiRouter = express.Router();
 
