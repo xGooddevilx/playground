@@ -8,6 +8,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const tourFilePath = `${__dirname}/dev-data/data/tours-simple.json`;
+const tours = JSON.parse(fs.readFileSync(tourFilePath));
 
 const baseApiUrl = "/api/v1";
 const PORT = 3000;
@@ -23,11 +24,13 @@ app.use((_req, _res, next) => {
   next();
 });
 
-const apiRouter = express.Router();
+// Routes
 
-app.use(baseApiUrl, apiRouter);
+const userRouter = express.Router();
+const tourRouter = express.Router();
 
-const tours = JSON.parse(fs.readFileSync(tourFilePath));
+app.use(`${baseApiUrl}/tours`, tourRouter);
+app.use(`${baseApiUrl}/users`, userRouter);
 
 const getAllTours = (req, res) => {
   res.status(200).json({
@@ -164,11 +167,11 @@ const deleteUser = (req, res) => {
 };
 
 // we can use app itself too ==> app.route() ...
-apiRouter.route("/tours").get(getAllTours).post(createTour);
-apiRouter.route("/tours/:id").get(getTour).patch(updateTour).delete(deleteTour);
+tourRouter.route("/").get(getAllTours).post(createTour);
+tourRouter.route("/:id").get(getTour).patch(updateTour).delete(deleteTour);
 
-apiRouter.route("/users").get(getAllUsers).post(createUser);
-apiRouter.route("/users/:id").get(getUser).patch(updateUser).delete(deleteUser);
+userRouter.route("/").get(getAllUsers).post(createUser);
+userRouter.route("/:id").get(getUser).patch(updateUser).delete(deleteUser);
 
 app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
