@@ -1,6 +1,6 @@
 import express, { json } from "express";
 import morgan from "morgan";
-import tourRouter from "./routes/tourRouter.js";
+import router from "./routes/tourRouter.js";
 import userRouter from "./routes/userRouter.js";
 
 const baseApiUrl = "/api/v1";
@@ -15,7 +15,7 @@ app.use((_req, _res, next) => {
 });
 
 // Routes
-app.use(`${baseApiUrl}/tours`, tourRouter);
+app.use(`${baseApiUrl}/tours`, router);
 app.use(`${baseApiUrl}/users`, userRouter);
 
 export default app;
