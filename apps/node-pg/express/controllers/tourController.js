@@ -30,6 +30,17 @@ const checkId = (req, res, next, val) => {
   next();
 };
 
+const checkBody = (req, res, next) => {
+  if (!req.body.name) {
+    return res.status(400).json({
+      status: "fail",
+      message: "Missing name in request body",
+    });
+  }
+
+  next();
+};
+
 const getTour = (req, res) => {
   const id = Number(req.params.id);
   const tour = tours.find(t => t.id === id);
@@ -107,6 +118,7 @@ const deleteTour = (req, res) => {
 
 export default {
   checkId,
+  checkBody,
   getAllTours,
   getTour,
   createTour,

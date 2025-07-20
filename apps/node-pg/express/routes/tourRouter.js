@@ -1,18 +1,19 @@
 import express from "express";
 import tourController from "../controllers/tourController.js";
 
-const tourRouter = express.Router();
+const router = express.Router();
 
-tourRouter.param("id", tourController.checkId);
+router.param("id", tourController.checkId);
 
-tourRouter
+router
   .route("/")
   .get(tourController.getAllTours)
-  .post(tourController.createTour);
-tourRouter
+  .post(tourController.checkBody, tourController.createTour);
+
+router
   .route("/:id")
   .get(tourController.getTour)
   .patch(tourController.updateTour)
   .delete(tourController.deleteTour);
 
-export default tourRouter;
+export default router;
