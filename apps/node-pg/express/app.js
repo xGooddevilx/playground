@@ -128,17 +128,47 @@ const deleteTour = (req, res) => {
   });
 };
 
-// apiRouter.get("/tours", getAllTours);
-// apiRouter.post("/tours", createTour);
-// apiRouter.get("/tours/:id", getTour);
-// apiRouter.patch("/tours/:id", updateTour);
-// apiRouter.delete("/tours/:id", deleteTour);
+const getAllUsers = (req, res) => {
+  res.status(500).json({
+    status: "error",
+    message: "This route is not yet defined",
+  });
+};
 
-// we can use app itself too,
-// app.route() ...
+const getUser = (req, res) => {
+  res.status(500).json({
+    status: "error",
+    message: "This route is not yet defined",
+  });
+};
 
+const createUser = (req, res) => {
+  res.status(500).json({
+    status: "error",
+    message: "This route is not yet defined",
+  });
+};
+
+const updateUser = (req, res) => {
+  res.status(500).json({
+    status: "error",
+    message: "This route is not yet defined",
+  });
+};
+
+const deleteUser = (req, res) => {
+  res.status(500).json({
+    status: "error",
+    message: "This route is not yet defined",
+  });
+};
+
+// we can use app itself too ==> app.route() ...
 apiRouter.route("/tours").get(getAllTours).post(createTour);
 apiRouter.route("/tours/:id").get(getTour).patch(updateTour).delete(deleteTour);
+
+apiRouter.route("/users").get(getAllUsers).post(createUser);
+apiRouter.route("/users/:id").get(getUser).patch(updateUser).delete(deleteUser);
 
 app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
