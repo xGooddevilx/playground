@@ -1,6 +1,34 @@
 import app from "./app.js";
+import mongoese from "mongoose";
+import dotenv from "dotenv";
 
-const PORT = 3000;
+dotenv.config({ path: "./.config.env" });
+
+const PORT = process.env.PORT;
+
+const isLocal = process.env.IS_LOCAL;
+console.log(process.env.PORT);
+
+const dbUrl = isLocal
+  ? process.env.DATABASE_URL_LOCAL
+  : process.env.DATABASE_URL.replace(
+      "<PASSWORD>",
+      process.env.DATABASE_PASSWORD
+    );
+
+mongoese
+  .connect(dbUrl, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(connect => {
+    console.log(connect.connection);
+    console.log("Connected to MongoDB successfully");
+  })
+  .catch(err => {
+    console.error("Failed to connect to MongoDB:", err);
+    process.exit(1);
+  });
 
 app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
