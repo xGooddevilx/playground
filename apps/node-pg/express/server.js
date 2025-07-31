@@ -1,5 +1,4 @@
 import app from "./app.js";
-import mongoese from "mongoose";
 import dotenv from "dotenv";
 
 dotenv.config({ path: "./.config.env" });
@@ -16,13 +15,12 @@ const dbUrl = isLocal
       process.env.DATABASE_PASSWORD
     );
 
-mongoese
+mongoose
   .connect(dbUrl, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
-  .then(connect => {
-    console.log(connect.connection);
+  .then(() => {
     console.log("Connected to MongoDB successfully");
   })
   .catch(err => {
