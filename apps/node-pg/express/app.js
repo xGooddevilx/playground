@@ -15,10 +15,6 @@ const app = express();
 app.use(morgan("dev"));
 app.use(json());
 app.use(express.static(`${__dirname}/public/`));
-app.use((_req, _res, next) => {
-  console.log("Custom Middleware");
-  next();
-});
 
 // Routes
 app.use(`${baseApiUrl}/tours`, router);
