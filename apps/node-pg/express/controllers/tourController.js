@@ -3,7 +3,7 @@ import Tour from "./../models/tour/tourModel.js";
 const getAllTours = async (req, res) => {
   try {
     const queryParams = { ...req.query };
-    const excludeFields = ["page", "sort", "limit", "fields"];
+    const excludeFields = ["page", "sort", "limit", "perPage", "fields"];
 
     excludeFields.forEach(q => delete queryParams[q]);
 
@@ -28,6 +28,18 @@ const getAllTours = async (req, res) => {
       query = query.select("name price");
     }
 
+    const page = req.query.page * 1 || 1;
+    const perPage = req.query.perPage * 1 || 100;
+
+    const skip = (page - 1) * perPage;
+
+    if (req.query.page) {
+      const tourLength = await Tour.countDocuments();
+      if (skip >= tourLength) throw new Error("This page does not exits");
+    }
+
+    query = query.skip(skip).limit(perPage);
+
     const tours = await query;
 
     res.status(200).json({
@@ -38,6 +50,7 @@ const getAllTours = async (req, res) => {
       },
     });
   } catch (error) {
+    console.log(error);
     res.status(400).json({
       status: "fail",
       message: error,
