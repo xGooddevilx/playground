@@ -2,9 +2,8 @@ import Tour from "./../models/tour/tourModel.js";
 
 const getAllTours = async (req, res) => {
   try {
-
     const queryParams = { ...req.query };
-    const excludeFields = ["page", "sort", "limit", "field"];
+    const excludeFields = ["page", "sort", "limit", "fields"];
 
     excludeFields.forEach(q => delete queryParams[q]);
 
@@ -13,22 +12,20 @@ const getAllTours = async (req, res) => {
       match => `$${match}`
     );
 
-    const query = Tour.find(JSON.parse(queryString));
-
+    let query = Tour.find(JSON.parse(queryString));
 
     if (req.query.sort) {
       const sortBy = req.query.sort.split(",").join(" ");
-      query.sort(sortBy);
+      query = query.sort(sortBy);
     } else {
-      query.sort("-createdAt");
+      query = query.sort("-createdAt");
     }
-
 
     if (req.query.fields) {
       const fields = req.query.fields.split(",").join(" ");
-      query.select(fields);
+      query = query.select(fields);
     } else {
-      query.select("-__v");
+      query = query.select("name price");
     }
 
     const tours = await query;
