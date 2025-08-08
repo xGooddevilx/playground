@@ -1,11 +1,23 @@
 import Tour from "./../models/tour/tourModel.js";
 
-  const aliasTopFiveCheap = (req, res, next) => {
-    req.query.perPage = "5";
-    req.query.sort = "-ratingsAverage,price";
-    req.query.fields = "name,price,ratingsAverage,summary,difficulty";
-    next();
-  };
+  // const aliasTopFiveCheap = (req, res, next) => {
+  //   req.query.perPage = "5";
+  //   req.query.sort = "price";
+  //   req.query.fields = "name,price,ratingsAverage,summary,difficulty";
+  //   next();
+  // };
+
+const aliasTopFiveCheap = (req, res, next) => {
+  const url = new URL(req.originalUrl, `${req.protocol}://${req.get("host")}`);
+  url.searchParams.set("perPage", "5");
+  url.searchParams.set("sort", "-ratingsAverage,price");
+  url.searchParams.set(
+    "fields",
+    "name,price,ratingsAverage,summary,difficulty"
+  );
+  req.url = url.pathname + url.search;
+  next();
+};
 
   const getAllTours = async (req, res) => {
     console.log("Q:", req.query);
